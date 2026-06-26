@@ -1,89 +1,100 @@
-<img src="https://img.shields.io/badge/GitHub-9Website-black?style=for-the-badge&logo=github" height="45">
-To access this site go to: https://9website.github.io/HashSnap/
-(If this URL redirects to a GitHub page, copy and paste it directly into your browser.)
+# <img src="https://img.shields.io/badge/GitHub-9Website-black?style=for-the-badge&logo=github" height="45">
 
-TL;DR is at the bottom.
+# To access this site go to: [`https://9website.github.io/HashSnap/`](https://9website.github.io/HashSnap/)
+(If this URL tries to take you to a GitHub page, copy it and paste it directly into your browser address bar or a new tab.)
 
-🔐 HashSnap — Client‑Side Password Hash Generator
-HashSnap is a fast, secure, browser‑based password hashing tool designed for developers, creators, and privacy‑focused users.
-All hashing is performed locally in your browser using the Web Crypto API — no servers, no tracking, no data storage.
+TL;DR (Too Long Didn't Read) is at the bottom.
 
-Enter a password, add an optional salt, choose your algorithm, and instantly generate a cryptographic hash you can use in applications, authentication systems, or integrity checks.
+---
 
-👤 Credits & Distribution
-This software is developed and maintained by 9Website.
+# 🔐 HashSnap — Client-Side Password Hash Generator
 
-This project is licensed under the MIT License.
+HashSnap is a fast, browser-based password hashing tool built for developers, creators, and privacy-conscious users.
 
-⚖️ License (MIT)
-This project is open‑source under the MIT License, which means:
+All hashing is performed **locally in your browser** using the Web Crypto API — no servers, no tracking, and no password storage. Enter a password, optionally add a salt, choose an algorithm, and instantly generate a cryptographic hash.
 
-You can use it freely  
-Personal, educational, and commercial use are all allowed.
+---
 
-You can modify it  
-Fork it, improve it, customize it — no restrictions.
+## 👤 Credits & Distribution
 
-You can redistribute it  
-As long as the original copyright notice is included.
+This software is developed, maintained, and distributed by **[9Website](https://github.com/9Website)**.
 
-You are NOT required to open‑source your own project  
-MIT is permissive and does not force derivative works to be public.
+This project is licensed under the **MIT License**.
 
-✔️ MIT is ideal for small tools, GitHub Pages projects, and developer utilities.
+---
 
-✨ Features
-Client‑Side Hashing: Your password never leaves your device — no servers involved.
+## ⚖️ License (MIT)
 
-Multiple Algorithms: SHA‑256, SHA‑1, and SHA‑512 supported via the Web Crypto API.
+This project is open-source under the **MIT License**.
 
-Optional Salt: Strengthen your hashes with custom salt values.
+That means:
 
-Copy‑to‑Clipboard: One‑click copying for fast workflow integration.
+1. **You are free to use it**  
+   Personal, educational, and commercial use are allowed.
 
-Secure by Design: Uses modern browser cryptography instead of external libraries.
+2. **You are free to modify it**  
+   You can fork, customize, and extend the project.
 
-Open‑Source: Transparent, lightweight, and easy to audit.
+3. **You are free to redistribute it**  
+   As long as you keep the original copyright and license notice.
 
-🧠 How It Works
-HashSnap uses the browser’s built‑in crypto.subtle.digest() function to generate cryptographic hashes.
-This ensures:
+4. **You are NOT required to open-source your own project**  
+   MIT is a permissive license and does not force derivative works to be public.
 
-No external dependencies
+---
 
-No network requests
+## ✨ Features
 
-No data collection
+* **Client-Side Hashing:** All hashing happens in your browser using `crypto.subtle.digest()`.
+* **Multiple Algorithms:** Support for SHA-256, SHA-1, and SHA-512.
+* **Optional Salt:** Add a salt string to strengthen your hashes.
+* **Copy-to-Clipboard:** One-click copying of the generated hash.
+* **Minimal & Fast:** Lightweight, no external libraries, no backend.
+* **Open-Source:** Easy to audit, fork, and integrate into other workflows.
 
-High‑performance hashing
+---
 
-Everything happens locally, inside your browser’s memory.
+## 🧠 How It Works
 
-⚠️ Troubleshooting
-If the hashing button doesn’t work:
+HashSnap uses the browser’s built-in **Web Crypto API**:
 
-Make sure you’re using a modern browser (Chrome, Edge, Firefox, Safari).
+- The password (and optional salt) are combined into a single string.
+- That string is encoded using `TextEncoder`.
+- The encoded data is passed to `crypto.subtle.digest()` with the selected algorithm.
+- The resulting hash bytes are converted to a hexadecimal string and displayed.
 
-Ensure JavaScript is enabled.
+No data is sent to any server. Everything happens in memory on the client side.
 
-Some older browsers may not support the Web Crypto API.
+---
 
-If you find bugs or want new features, open an Issue in this repository — contributions are always welcome.
+## ⚠️ Troubleshooting
 
-⏱️ TL;DR (Too Long; Didn’t Read)
-[!NOTE]
-HashSnap is a client‑side hashing tool. No passwords or salts are ever uploaded or stored.
+If HashSnap doesn’t work as expected:
 
-[!TIP]
-For best security, always use strong passwords and unique salts.
+- Make sure you’re using a **modern browser** (Chrome, Edge, Firefox, Safari).
+- Ensure **JavaScript is enabled**.
+- Some very old browsers may not support the Web Crypto API.
 
-Feature	Description
-🔒 Local Hashing	All hashing is done in your browser using the Web Crypto API.
-🧂 Salt Support	Add optional salts to strengthen your hashes.
-⚙️ Multiple Algorithms	SHA‑256, SHA‑1, and SHA‑512 available.
-📋 Copy Output	One‑click copying for fast development workflows.
+If you encounter bugs or have feature requests, please report them in the **Issues** tab of this repository.
 
+---
 
-https://img.shields.io/badge/License-MIT-yellow.svg
-https://img.shields.io/badge/Tech-WebCrypto-blue.svg
-https://img.shields.io/badge/Status-Stable-brightgreen.svg
+## ⏱️ TL;DR (Too Long; Didn't Read)
+
+> This is a **client-side password hashing tool**.  
+> Your input (password and salt) is never uploaded, stored, or logged.
+
+> For best security, always use strong, unique passwords and appropriate salts.
+
+| Feature | Description |
+| :--- | :--- |
+| 🔒 **Local Hashing** | All hashing is done in your browser using the Web Crypto API. |
+| 🧂 **Salt Support** | Optional salt field to strengthen hashes. |
+| ⚙️ **Multiple Algorithms** | SHA-256, SHA-1, and SHA-512 available. |
+| 📋 **Copy Output** | One-click copying of the generated hash string. |
+
+---
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Tech: WebCrypto](https://img.shields.io/badge/Tech-WebCrypto-blue.svg)
+![Status: Stable](https://img.shields.io/badge/Status-Stable-brightgreen.svg)
