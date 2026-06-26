@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HashSnap — Password Hash Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>HashSnap</h1>
+        <p class="subtitle">Instant password hashing — right in your browser.</p>
+    </header>
+
+    <main>
+        <div class="input-box">
+            <label>Password</label>
+            <input type="password" id="passwordInput" placeholder="Enter password">
+            <button id="togglePassword">Show</button>
+        </div>
+
+        <div class="input-box">
+            <label>Salt (optional)</label>
+            <input type="text" id="saltInput" placeholder="Enter salt">
+        </div>
+
+        <div class="input-box">
+            <label>Algorithm</label>
+            <select id="algorithmSelect">
+                <option value="SHA-256">SHA‑256</option>
+                <option value="SHA-1">SHA‑1</option>
+                <option value="SHA-512">SHA‑512</option>
+            </select>
+        </div>
+
+        <button id="hashButton" class="main-btn">Generate Hash</button>
+
+        <div class="output-box">
+            <label>Hash Output</label>
+            <textarea id="hashOutput" readonly></textarea>
+            <button id="copyButton">Copy</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>HashSnap • Client‑side hashing • Open‑source</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
