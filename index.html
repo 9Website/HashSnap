@@ -3,31 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HashSnap — Password Hash Generator</title>
+    <title>HashSnap — 🔒 Password Hash Generator</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Favicon: lock icon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='50' x='10' font-size='48'%3E%F0%9F%94%92%3C/text%3E%3C/svg%3E">
 </head>
-<body>
+<body data-theme="dark">
 
 <header>
-    <h1>HashSnap</h1>
+    <div class="top-bar">
+        <h1>HashSnap</h1>
+        <div class="theme-toggle">
+            <span>Theme:</span>
+            <button id="themeToggle">Dark</button>
+        </div>
+    </div>
     <p class="subtitle">Instant password hashing — right in your browser.</p>
 </header>
 
 <main>
 
     <div class="input-box">
-        <label>Password</label>
+        <div class="row">
+            <label>Password</label>
+            <span class="icon">🔓</span>
+        </div>
         <input type="password" id="passwordInput" placeholder="Enter password">
-        <button id="togglePassword">Show</button>
+
+        <div class="controls-row">
+            <label class="instant-label">
+                Instant Hash:
+                <input type="checkbox" id="instantHashToggle">
+            </label>
+            <button id="togglePassword">Show</button>
+        </div>
     </div>
 
     <div class="input-box">
         <label>Salt (optional)</label>
-        <input type="text" id="saltInput" placeholder="Enter salt">
+        <div class="salt-row">
+            <input type="text" id="saltInput" placeholder="Enter salt">
+            <button id="generateSalt">Generate Salt</button>
+        </div>
         <p class="explain">
-            <strong>What is a salt?</strong>  
-            A salt is a random string added to your password before hashing.  
-            It makes hashes stronger and prevents attackers from using precomputed lists.
+            <strong>What is a salt?</strong><br>
+            A salt is a random string added to your password before hashing. It makes hashes stronger and prevents attackers from using precomputed lists.
         </p>
     </div>
 
@@ -40,34 +60,72 @@
         </select>
     </div>
 
+    <div class="info-row">
+        <span id="hashLength">Hash length: —</span>
+    </div>
+
+    <div class="format-box">
+        <label>Hash Format</label>
+        <select id="formatSelect">
+            <option value="hex">Hex (lowercase)</option>
+            <option value="hex-upper">Hex (UPPERCASE)</option>
+            <option value="base64">Base64</option>
+        </select>
+    </div>
+
     <button id="hashButton" class="main-btn">Generate Hash</button>
 
     <div class="output-box">
-        <label>Hash Output</label>
+        <div class="row">
+            <label>Hash Output</label>
+            <span class="icon">🔒</span>
+        </div>
         <textarea id="hashOutput" readonly></textarea>
-        <button id="copyButton">Copy</button>
+
+        <div class="output-controls">
+            <span id="hashTiming">Hash time: — ms</span>
+            <div class="buttons">
+                <button id="copyButton">Copy Hash</button>
+                <button id="copyJsonButton">Copy Salt + Hash as JSON</button>
+                <button id="clearAllButton">Clear All</button>
+            </div>
+        </div>
     </div>
 
     <section class="how-to">
         <h2>How to Use This Hash in Your Website</h2>
-        <p>You can store this hash instead of the real password. When a user logs in, hash their input and compare it.</p>
+        <p>You can store this hash instead of the real password. When a user logs in, hash their input the same way and compare it to the stored hash.</p>
 
         <pre><code>
 // Example (JavaScript)
+const storedSalt = "SOME_SALT";
 const storedHash = "PASTE_HASH_HERE";
 
-async function verifyPassword(input) {
+async function hashPassword(password, salt) {
     const encoder = new TextEncoder();
-    const data = encoder.encode(input);
+    const data = encoder.encode(salt + password);
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+    return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+}
 
-    return hashHex === storedHash;
+async function verifyPassword(inputPassword) {
+    const inputHash = await hashPassword(inputPassword, storedSalt);
+    return inputHash === storedHash;
 }
         </code></pre>
 
         <p>This is how websites safely check passwords without ever storing the real one.</p>
+    </section>
+
+    <section class="security-notes">
+        <h2>Security Notes</h2>
+        <ul>
+            <li>Never store plain passwords — always store hashes.</li>
+            <li>Use a unique salt per user to make attacks harder.</li>
+            <li>Hashing is not encryption; hashes cannot be “decrypted” back to the original password.</li>
+            <li>For production systems, consider dedicated password hashing algorithms like PBKDF2, bcrypt, or Argon2.</li>
+        </ul>
     </section>
 
 </main>
